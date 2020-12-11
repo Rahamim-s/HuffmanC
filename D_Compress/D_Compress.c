@@ -6,7 +6,7 @@
 void decodage()
 {
     FILE* texteFinal=NULL;
-    texteFinal=fopen("texteFinal.txt","r");///Le texte ecrit en binaire
+    texteFinal=fopen("texteFinal.txt","r");///Text written in binary
     if (texteFinal==NULL)
     {
         printf("erreur\n");
@@ -24,7 +24,7 @@ void decodage()
             {
 
                 FILE* texteFinal2=NULL;
-                texteFinal2=fopen("texteFinal2.txt","w");///Le texte que l'on traduit a partir du binaire
+                texteFinal2=fopen("texteFinal2.txt","w");///The text that is translated from the binary
                 if (texteFinal2==NULL)
                 {
                     printf("erreur\n");
@@ -33,20 +33,20 @@ void decodage()
                 {
                     char pointeurTexteCode[9];
 
-                    while(fgets(pointeurTexteCode,9,texteFinal)!=NULL)///on recup le code dans le texte
+                    while(fgets(pointeurTexteCode,9,texteFinal)!=NULL)///we get the code in the text
                     {
                         char pointeurDicoCode[9];
                         char lettreCorrespondante;
                         while(strcmp(pointeurDicoCode,pointeurTexteCode))
                         {
                             fscanf(dico,"%c%*[\n]",&lettreCorrespondante);
-                            fgets(pointeurDicoCode,9,dico);///il se balade  dans tout le dico jusqu'a touver la bonne valeur
+                            fgets(pointeurDicoCode,9,dico);///it works through the dico until he finds the right value
                             printf("%s-%s\n",pointeurDicoCode,pointeurTexteCode);
                             printf("lettre:%c\n",lettreCorrespondante);
                         }
                         fprintf(texteFinal2,"%c",lettreCorrespondante);
                         rewind(dico);
-                        //fgets(pointeurTexteCode,9,texteFinal);///on recup le code dans le texte
+                        //fgets(pointeurTexteCode,9,texteFinal);///we get the code in the text
                         printf("chaine recup dans texte: %s\n",pointeurTexteCode);
                         printf("ecriture\n");
                     }
@@ -91,11 +91,11 @@ void creationFichierCodage()
                 if (texteFinal!=NULL)
                 {
                     char caractere;
-                    caractere=fgetc(texte);///on crée le curseur qui lit le texte a traduire
+                    caractere=fgetc(texte);///we create the cursor that reads the text to translate
 
                     while (caractere!=EOF)
                     {
-                        char pointeurDicoLettre;///on crée le curseur qui lit et cherche le code
+                        char pointeurDicoLettre;///we create the cursor which reads and searches for the code
                         char pointeurDicoCode[9];
                         //pointeurDicoLettre=fgetc(dico);
                         fscanf(dico,"%c%*[\n]",&pointeurDicoLettre);
