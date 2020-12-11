@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Dico.h
- * \brief  
+ * \brief  header used to translate a tree to binary data in a file
  * 
  * \author Florian ALEXANDRE et Menkem HUET
  * \date   11/12/2020
