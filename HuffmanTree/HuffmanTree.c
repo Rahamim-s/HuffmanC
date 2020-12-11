@@ -36,17 +36,17 @@ maillon* creationMaillonOccurrence(maillon *maillonListe,maillon *maillonCurseur
 
 
         char caractere;
-        caractere=fgetc(texte);///on crée le 1er maillon qui est a la base de la liste, qui n'a besoin d'aucune verification
+        caractere=fgetc(texte);///we create the 1st link which is at the base of the list, which does not need any verification
         maillonCurseur->lettre=caractere;
         maillonCurseur->poids=1;
         maillonCurseur->next=NULL;
         maillonListe->next=maillonCurseur;
         int jamaisTraite;
-        while(caractere!=EOF)///boucle lecture fichier
+        while(caractere!=EOF)///loop play file
         {
             caractere=fgetc(texte);
             jamaisTraite=1;
-            maillonCurseur=maillonListe->next;///on init le curseur au debut de la liste +1
+            maillonCurseur=maillonListe->next;
             int possibiliteAvancement=1;
             while(possibiliteAvancement==1)
             {
@@ -62,7 +62,7 @@ maillon* creationMaillonOccurrence(maillon *maillonListe,maillon *maillonCurseur
             }
             if (jamaisTraite==1 && caractere!=EOF)
             {
-                maillon *newMaillon;          ///on crée un new maillon
+                maillon *newMaillon;          ///it creates a new link
                 newMaillon=malloc(sizeof(maillon));
 
                 newMaillon->poids=1;
@@ -80,7 +80,7 @@ maillon* creationMaillonOccurrence(maillon *maillonListe,maillon *maillonCurseur
 
 noeudModif* convertisseur(maillon *maillonCurseur,noeudModif* noeudCurseur,noeudModif* noeudListe)
 {
-    noeudListe->next=noeudCurseur;///pour transferer une liste chainée a une liste de noeud, on va considérer que sad sera suivant
+    noeudListe->next=noeudCurseur;///to transfer a linked list to a node list, we will consider that sad will be next
 
 
     int possibiliteAvancement=1;
@@ -95,7 +95,7 @@ noeudModif* convertisseur(maillon *maillonCurseur,noeudModif* noeudCurseur,noeud
                 if(maillonCurseur->next!=NULL)
                 {
 
-                    noeudModif *newNoeud;          ///on crée un new noeud tant qu'il y aura un maillon a faire correspondre
+                    noeudModif *newNoeud;          ///we create a new node as long as there is a link to match
                     newNoeud=malloc(sizeof(noeudModif));
                     newNoeud->next=NULL;
                     newNoeud->sad=NULL;
@@ -108,7 +108,7 @@ noeudModif* convertisseur(maillon *maillonCurseur,noeudModif* noeudCurseur,noeud
                 }
 
             }
-            noeudCurseur=noeudListe->next;///on reset noeud curseur
+            noeudCurseur=noeudListe->next;///we reset noeudCurseur
     return noeudListe;
 }
 
@@ -123,13 +123,13 @@ noeudModif* indice_min(noeudModif* noeudCurseur,noeudModif* noeudListe)
             occurenceMin=noeudCurseur->poids;
 
         if(noeudCurseur->poids<=occurenceMin)
-            occurenceMin=noeudCurseur->poids;///on a maintenant l'occurence minimum possible
+            occurenceMin=noeudCurseur->poids;///we now have the minimum possible occurrence
 
 
         noeudCurseur=noeudCurseur->next;
 
     }
-    noeudCurseur=noeudListe->next;///on réinit pour parcourir une deuxieme fois la boucle et pour s'arreter la ou on voit l'occurence
+    noeudCurseur=noeudListe->next;///we reinitiate to go through the loop a second time and to stop where we see the occurrence
 
     while(noeudCurseur->poids!=occurenceMin)
         noeudCurseur=noeudCurseur->next;
@@ -138,28 +138,28 @@ noeudModif* indice_min(noeudModif* noeudCurseur,noeudModif* noeudListe)
 
 }
 
-noeudModif* list_remove(noeudModif *noeudListe,noeudModif *noeudCurseur)///il nous faut retrouver ou faire le branchement juste avant la ou c supprimé pour pas couper la liste
+noeudModif* list_remove(noeudModif *noeudListe,noeudModif *noeudCurseur)
 {
     int lettreSuppr;
-    lettreSuppr=noeudCurseur->lettre;///on va faire les comparatifs avec cette lettre
-    noeudCurseur=noeudListe->next;///on réinit le curseur
+    lettreSuppr=noeudCurseur->lettre;///we will do the comparisons with this letter
+    noeudCurseur=noeudListe->next;
     int pasPremiereLettre=1;
     noeudModif **pointeurNoeudSuppr;
-    if (noeudCurseur->lettre==lettreSuppr)///si on rentre icic c'est que c'est la 1ere lettre qui doit etre changé on a donc pas les memes branchements a faire
+    if (noeudCurseur->lettre==lettreSuppr)///if we enter here it is because it is the 1st letter that must be changed so we do not have the same connections to make
     {
         pasPremiereLettre=0;
-        pointeurNoeudSuppr=&noeudCurseur;///ce pointeur permet de pas perdre ce que l'on veut supprimer
+        pointeurNoeudSuppr=&noeudCurseur;///this pointer allows you to not lose what you want to delete
         noeudListe->next=noeudListe->next->next;
 
     }
     if(pasPremiereLettre==1)
     {
-        while(lettreSuppr!=noeudCurseur->next->lettre)///on arrive ainsi au noeud avant la suppression et on peut changer les branchements
+        while(lettreSuppr!=noeudCurseur->next->lettre)///we arrive at the node before the deletion and we can change the connections
         {
             noeudCurseur=noeudCurseur->next;
         }
-        pointeurNoeudSuppr=&noeudCurseur->next;///ce pointeur permet de pas perdre ce que l'on veut supprimer
-        noeudCurseur->next=noeudCurseur->next->next;///on passe au dessus du prochain maillon
+        pointeurNoeudSuppr=&noeudCurseur->next;///this pointer allows you to not lose what you want to delete
+        noeudCurseur->next=noeudCurseur->next->next;///we go over the next link
     }
 
     free(pointeurNoeudSuppr);
@@ -173,7 +173,7 @@ noeudModif* list_remove(noeudModif *noeudListe,noeudModif *noeudCurseur)///il no
 noeudModif* fusion(noeudModif* temp1, noeudModif* temp2,noeudModif* tempFinal)
 {
 
-    tempFinal->lettre = '$';///sert juste a bien identifier les noeud pour nous travailler
+    tempFinal->lettre = '$';///is just used to identify the nodes to work us
     tempFinal->poids = temp1->poids + temp2->poids;
     tempFinal->sad = temp1;
     tempFinal->sag = temp2;
@@ -184,20 +184,13 @@ noeudModif* fusion(noeudModif* temp1, noeudModif* temp2,noeudModif* tempFinal)
 
 noeudModif* creationArbreHuffman(noeudModif *noeudCurseur, noeudModif *noeudListe)
 {
-    noeudModif *temp1;///on créé les 2 maillons temporaires
+    noeudModif *temp1;///we create the 2 temporary links
     temp1=malloc(sizeof(noeudModif));
 
     noeudModif *temp2;
     temp2=malloc(sizeof(noeudModif));
-/*
-    noeudModif *tempFinal;///et le temporaire final
-    tempFinal=malloc(sizeof(noeudModif));
-    tempFinal->next=NULL;
-    tempFinal->sad=NULL;
-    tempFinal->sag=NULL;
-*/
 
-    while(noeudListe->next->next!=NULL)///tant qu'il ne reste pas plus qu'un noeud dans la liste de noeud, qui correspondra à  l'arbre
+    while(noeudListe->next->next!=NULL)///as long as there is no more than one node left in the node list, which will match the tree
     {
         affichageListeNoeud(noeudCurseur);
         printf("\n\n");
@@ -212,11 +205,11 @@ noeudModif* creationArbreHuffman(noeudModif *noeudCurseur, noeudModif *noeudList
         noeudListe=list_remove(noeudListe,noeudCurseur);
 
         noeudCurseur=noeudListe->next;
-        while (noeudCurseur && noeudCurseur->next)///on va a la fin de la liste...
+        while (noeudCurseur && noeudCurseur->next)
             noeudCurseur=noeudCurseur->next;
 
 
-        noeudModif *tempFinal;///...pour rajouter le temp final
+        noeudModif *tempFinal;///we add the final temp
         tempFinal=malloc(sizeof(noeudModif));
         tempFinal->next=NULL;
         tempFinal->sad=NULL;
@@ -225,10 +218,10 @@ noeudModif* creationArbreHuffman(noeudModif *noeudCurseur, noeudModif *noeudList
         if (noeudCurseur)
             noeudCurseur->next=tempFinal;
 
-        if (!noeudCurseur)///a la derniere opération il n'y a plus de noeud curseur du coup on rajoute le temp directement a noeud liste
+        if (!noeudCurseur)///at the last operation there is no longer a cursor node so we add the time directly to the list node
             noeudListe->next=tempFinal;
 
-        tempFinal=fusion(temp1,temp2,tempFinal);///on modifie le tempFinal
+        tempFinal=fusion(temp1,temp2,tempFinal);///we modify the final temp
 
         noeudCurseur=noeudListe->next;
 
@@ -239,9 +232,9 @@ noeudModif* creationArbreHuffman(noeudModif *noeudCurseur, noeudModif *noeudList
 
 
 
-///fonction supplémentaire
+///additional function
 
-/// -------------------------------------------------------------------------- fonction annexe
+/// -------------------------------------------------------------------------- ancillary function
 int profondeur_tree(noeudModif *noeudCurseur)
 {
     if (noeudCurseur==NULL) return 0;
@@ -288,7 +281,3 @@ void print_tree(noeudModif* noeudCurseur)
         print_tree(noeudCurseur->sad);
     }
 }
-
-
-
-
