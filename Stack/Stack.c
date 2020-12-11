@@ -16,7 +16,7 @@ int isEmptyStack(stack ps)
 }
 void sPush(int n,stack *ps)
 {
-    List_tree top = new_singleton_list(n); //on cast le void en int
+    List_tree top = new_singleton_list(n); //we cast the void in int
     top->succ = ps->top;
     ps->top = top;
     ps->depth++;
