@@ -34,8 +34,6 @@ typedef struct lStack
     int depth;/**< the depth of the stack*/
 }stack;
 
-
-stack *newEmptyStack();
 /**
  * \brief Function to create an empty stack.
  *      \n Example :
@@ -44,9 +42,8 @@ stack *newEmptyStack();
  *      \endcode
  * \return a new empty stack which is ready to be used.
  */
+stack *newEmptyStack();
 
-
-int isEmptyStack(stack ps);
 /**
  * \brief Function to check if a list is empty or not.
  *      \n Example :
@@ -56,20 +53,20 @@ int isEmptyStack(stack ps);
  *\return the state of the value \c depth in the stack.
  *\return \c 1, if the stack is empty or \c 0, if it's not.
  */
+int isEmptyStack(stack ps);
 
-void sPush(int n, stack *ps); //stack's add
 /**
  * \brief push in stack
  * \param n -> element we send to the stack
  * \param ps -> stack
  */
+void sPush(int n, stack *ps); //stack's add
 
-int sPop(stack *ps); //stack's remove
 /**
  * \brief stack removal
  * \param ps -> ps
  * return n -> show element that comes out of the stack
  */
-
+int sPop(stack *ps); //stack's remove
 
 #endif // STACK_H_INCLUDED
