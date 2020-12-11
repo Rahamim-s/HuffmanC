@@ -5,14 +5,14 @@
 
 
 
-void conversion_bin (char* path){///A
+void conversion_bin (char* path){
     FILE* texte = NULL;
     FILE* result = NULL;
     int tab[10];
     int lettre = 0,i = 0;
     texte = fopen(path,"r");
     result = fopen("result.txt","w+");
-    lettre = fgetc(texte); // On lit le caractère
+    lettre = fgetc(texte); // We read the character 
     do
     {
         for( i=0; lettre > 0; i++)
@@ -29,7 +29,7 @@ void conversion_bin (char* path){///A
             fprintf(result,"%d",tab[i]);
 
 
-        lettre = fgetc(texte); // On lit le caractère
+        lettre = fgetc(texte); // We read the character
     } while (lettre != EOF);
     fclose(texte);
     fclose(result);
@@ -40,10 +40,10 @@ void nb_char(){///B
     FILE* texte = NULL;
     texte = fopen("result.txt","r");
 
-    int lettre = 0, compteur = -1; // Le compteur est à -1 car le dernier caractère EOF est compté à la fin
+    int lettre = 0, compteur = -1; // The counter is at -1 because the last character (EOF) is counted at the end
     do
     {
-        lettre = fgetc(texte); // On lit le caractère
+        lettre = fgetc(texte); // We read the character
         compteur++;
     } while (lettre != EOF);
 
@@ -51,40 +51,40 @@ void nb_char(){///B
     printf("nbr chara : %d\n",compteur);
 }
 
-void Afficher(noeudModif* noeudCurseur, stack* ps, int n, stack* refps,LSC *l,int* pi){ /// il faut utiliser une pile : dès qu'on monte on ajoute dans la pile et inversement on dépile.
+void Afficher(noeudModif* noeudCurseur, stack* ps, int n, stack* refps,LSC *l,int* pi){ /// we must use a stack: when we go up, we add to the stack and if we go down, we remove.
 
     if (noeudCurseur==NULL);
-    else {  /// parcours en préfixe car on veut connaitre le chemin du maillon donc les parents d'abords
+    else {  /// we travel in prefix because we want to know the path of leaves so parents first.
         if (noeudCurseur->sag!=NULL){
-            sPush(1,ps);/// dès qu'on se déplace à gauche on traduit ça par 1 en binaire
+            sPush(1,ps); /// when we move to the left we translate this as 1 in binary
             Afficher(noeudCurseur->sag,ps,n,refps,l,pi);
-            sPop(ps);///dès qu'on sort de la fenêtre précédente cela signifit que nous avons "monté" dans l'arbre donc on enlève le chemin
+            sPop(ps); ///when exiting the previous window, it means that we have "climbed" into the tree so we remove the path.
         }
         if (noeudCurseur->sad!=NULL){
-            sPush(0,ps); /// dès qu'on se déplace à droite on traduit ça par 0 en binaire
+            sPush(0,ps); /// when we move to the right we translate this as 0 in binary
             Afficher(noeudCurseur->sad,ps,n,refps,l,pi);
-            sPop(ps);///dès qu'on sort de la fenêtre précédente cela signifit que nous avons "monté" dans l'arbre donc on enlève le chemin
+            sPop(ps); ///when exiting the previous window, it means that we have "climbed" into the tree so we remove the path.
         }
         if ((noeudCurseur->sad==NULL)&&(noeudCurseur->sag==NULL)){
             n=0;
-            while (n<*pi){///on utilise un pointeur sur pi pour savoir où il faut commencer à ecrire
+            while (n<*pi){ ///we use a pointer to pi to know where to start writing
                 l=l->succ;
                 n++;
             }
-            l->lettre=noeudCurseur->lettre; /// dans notre LSC la lettre apparait avant  le chemin
+            l->lettre=noeudCurseur->lettre; /// in our LSC the letter appears before the path
             l->numero=0;
             l=l->succ;
             (*pi)++;
-            while (isEmptyStack(*ps)==0){ /// on utilise deux pile pour pouvoir extraire les données de la pile ps avec l'aide de la pile refps
-                n = sPop(ps); /// donc ici on vide la pile ps
-                sPush(n,refps); /// ici on remplie refps
-                l->numero=n; /// on extrait les données pour les mettres dans notre LSC
+            while (isEmptyStack(*ps)==0){ /// two stacks are used to extract data from the ps stack with the help of the refps stack
+                n = sPop(ps); /// so here we empty the ps stack
+                sPush(n,refps); /// here we fill refps
+                l->numero=n; /// we extract the data to put it in our LSC
                 l=l->succ;
                 (*pi)++;
             }
             while (isEmptyStack(*refps)==0){
-                n = sPop(refps); /// ici on vide la pile refps
-                sPush(n,ps); /// ici on reremplie ps
+                n = sPop(refps); /// here we empty refps
+                sPush(n,ps); /// /// here we fill ps
             }
         }
     }
