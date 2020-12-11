@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   DoublyLinkedList.h
+ * \file   D_Compress.h
  * \brief  header used to compress files and create a new file
  * 
  * \author VincentEung and Ralys Lallali
