@@ -9,19 +9,16 @@
 #ifndef D_COMPRESS_H_INCLUDED
 #define D_COMPRESS_H_INCLUDED
 
-
-void creationFichierCodage();
-
 /**
  * \brief Function to create a new text file in which we put the caracters we find 
  */
-
-void decodage();
+void creationFichierCodage();
 
 /**
  * \brief Function text translated in binary
  * \get back the code in the files
  * \pointeurDicoCode is the pointer which scroll the dico until it finds the right value 
  */
+void decodage();
 
 #endif // D_COMPRESS_H_INCLUDED
