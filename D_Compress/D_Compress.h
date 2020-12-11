@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   DoublyLinkedList.h
- * \brief  Function used to compress files and create a new file
+ * \brief  header used to compress files and create a new file
  * 
  * \author VincentEung and Ralys Lallali
  * \date   11 December 2020
